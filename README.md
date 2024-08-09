@@ -15,18 +15,20 @@ this model is still in its beginning phase you can't just mount it now
 
 
 here is the overview 
-+----------+----------+----------+------......----------+
-|   G1(64) |  G2(64)  |  G3(64)  |  G4(64).....| G64(64)|    
------------+----------+----------+-----+........--------+
++----------+----------+----------+----------+ .... +----------+
+|  G1(64)  |  G2(64)  |  G3(64)  |  G4(64)  | .... | G64(64)  |
++----------+----------+----------+----------+ .... +----------+
+
 all groups are of size 64 if i write a file which occupies 34 blocks then the file will just occupy the 
 first 34 blocks and then the group structure looks something like this
-+-------+------------+----------+------......----------+
-| G1(34)|  G2(94)    |  G3(64)  |  G4(64).....| G64(64)|    
---------+------------+----------+-----+........--------+
++----------+------------+----------+----------+ .... +----------+
+|  G1(34)  |  G2(94)    |  G3(64)  |  G4(64)  | .... | G64(64)  |
++----------+------------+----------+----------+ .... +----------+
 imagine if the final structure after allocating some files look like
-+----------+----------+----------+------......----------+
-|   G1(34) |  G2(60)  |  G3(64)  |  G4(33).....| G64(64)|    
------------+----------+----------+-----+........--------+
+
++----------+----------+----------+----------+ .... +----------+
+|  G1(34)  |  G2(60)  |  G3(64)  |  G4(33)  | .... | G64(64)  |
++----------+----------+----------+----------+ .... +----------+
 this looks like G1 G2 G3 G4 are already occupied inorder to update the file residing in G1 
 we allocate a group pointer which points to the first block of next group which holds the data 
 
