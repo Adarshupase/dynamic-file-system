@@ -5,8 +5,8 @@ DISK_IMAGE = disk.img
 
 all: $(TARGET) $(DISK_IMAGE)
 
-$(TARGET): main.c
-	$(CC) $(CFLAGS) -o $(TARGET) main.c
+$(TARGET): fs.c
+	$(CC) $(CFLAGS) -o $(TARGET) fs.c
 
 $(DISK_IMAGE):
 	dd if=/dev/zero of=$(DISK_IMAGE) bs=1M count=5000
