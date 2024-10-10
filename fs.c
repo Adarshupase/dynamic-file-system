@@ -16,7 +16,6 @@ char* group_bitmap;
 int bitmap_size;
 FILE* disk_file;
 
-// Define all structures
 
 typedef struct {
     u32 magic_number;
@@ -73,7 +72,7 @@ typedef struct {
     int BufferLength;
 } Buffer_;
 
-// Function prototypes
+
 void update_bitmap(char* bitmap, int GroupNo);
 int findGroup(GROUP_BLOCK gb, int blocks_needed);
 int getInodeNumber(inode_Block* iNodeB);
@@ -81,8 +80,6 @@ void create_File(DISK* disk, inode_Block* inodeB, int fileSize, char* File_ct);
 void update_File(DISK* disk, inode_Block* inodeB, int updateSize, char* File_ct, int inumber);
 void read_File(int inumber, Buffer_ *buffer);
 void create_FFS(const char* disk_filename);
-
-// Implementations
 
 void update_bitmap(char* bitmap, int GroupNo) {
     bitmap[GroupNo / 8] |= (1 << (GroupNo % 8)); // Mark as allocated
@@ -144,7 +141,7 @@ void create_File(DISK* disk, inode_Block* inodeB, int fileSize, char* File_ct) {
     // Update the group info for the remaining blocks
     int remaining_blocks = total_Blocks_available - blocks_needed;
     if (remaining_blocks > 0) {
-        group_info* next_group = disk->gb.groups[GroupNo + 1]; // Assuming there is a next group
+        group_info* next_group = disk->gb.groups[GroupNo + 1]; 
         next_group->start_block = group->next_Block + blocks_needed;
         next_group->next_Block = next_group->start_block;
         group->end_block = group->next_Block + blocks_needed - 1;
@@ -196,7 +193,7 @@ void update_File(DISK* disk, inode_Block* inodeB, int updateSize, char* File_ct,
     // Update the group info for the remaining blocks
     int remaining_blocks = total_Blocks_available - blocks_needed;
     if (remaining_blocks > 0) {
-        group_info* next_group = disk->gb.groups[GroupNo + 1]; // Assuming there is a next group
+        group_info* next_group = disk->gb.groups[GroupNo + 1];
         next_group->start_block = group->next_Block + blocks_needed;
         next_group->next_Block = next_group->start_block;
         group->end_block = next_group->start_block + blocks_needed - 1;
@@ -246,7 +243,6 @@ void create_FFS(const char* disk_filename) {
         exit(1);
     }
 
-    // Initialize superblock
     superblock sb = {0};
     sb.magic_number = 0xDEADBEEF;
     sb.total_blocks = 1024;
@@ -256,7 +252,7 @@ void create_FFS(const char* disk_filename) {
 
     fwrite(&sb, sizeof(superblock), 1, disk_file);
 
-    // Initialize group info and bitmap
+
     GROUP_BLOCK gb = {0};
     group_info* groups[TOTAL_GROUPS];
     bitmap_size = (TOTAL_GROUPS + 7) / 8;
@@ -278,11 +274,10 @@ void create_FFS(const char* disk_filename) {
     fwrite(&gb, sizeof(GROUP_BLOCK), 1, disk_file);
     fwrite(group_bitmap, bitmap_size, 1, disk_file);
 
-    // Initialize inode block
     inode_Block inodeB = {0};
     fwrite(&inodeB, sizeof(inode_Block), 1, disk_file);
 
-    // Initialize data blocks
+
     Data_block* dataBlocks = calloc(1024, sizeof(Data_block));
     fwrite(dataBlocks, 1024 * sizeof(Data_block), 1, disk_file);
 
