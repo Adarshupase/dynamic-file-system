@@ -20,9 +20,11 @@ this model is still in its beginning phase you can't just mount it now <br>
 here is the overview 
 
 <br>
+```
 +----------+----------+----------+----------+ .... +----------+<br>
 |  G1(64)  |  G2(64)  |  G3(64)  |  G4(64)  | .... | G64(64)  |<br>
-+----------+----------+----------+----------+ .... +----------+<br>
++----------+----------+----------+----------+ .... +----------<br>
+```
 <br>
 all groups are of size 64 if i write a file which occupies 34 blocks then the file will just occupy the <br>
 first 34 blocks and then the group structure looks something like this<br>
