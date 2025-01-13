@@ -1,5 +1,5 @@
-# dynamic-file-system-simulation
-Dynamic file system is a file system simulation in which the block groups are flexible which prevents internal fragmentation
+# dynamic-file-system
+Dynamic file system is a file system in which the block groups are flexible which prevents internal fragmentation
 <br>
 <br>
 The main idea behind this file system model was the overhead of allocating the block pointers for large files<br>
